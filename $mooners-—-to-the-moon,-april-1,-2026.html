@@ -1,0 +1,821 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>$MOONERS — To the Moon, April 1, 2026</title>
+  <style>
+
+:root {
+  --bg: #06060a;
+  --surface: #0f0f16;
+  --surface2: #16161f;
+  --orange: #FF6B1A;
+  --orange-dim: rgba(255, 107, 26, 0.15);
+  --orange-glow: rgba(255, 107, 26, 0.35);
+  --blue: #4A9EFF;
+  --text: #F0EDE8;
+  --text-dim: rgba(240, 237, 232, 0.55);
+  --text-faint: rgba(240, 237, 232, 0.25);
+  --lunar: #9B9B9B;
+  --border: rgba(240, 237, 232, 0.08);
+  --hero-bg: url('https://pbs.twimg.com/community_banner_img/2037915077194506240/J-ol0-Nc?format=jpg&name=900x900');
+}
+
+*, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+
+html { scroll-behavior: smooth; }
+
+body {
+  background: var(--bg);
+  color: var(--text);
+  font-family: 'Helvetica Neue', Helvetica, Arial, sans-serif;
+  overflow-x: hidden;
+}
+
+/* NAV */
+#nav {
+  position: fixed;
+  top: 0; left: 0; right: 0;
+  z-index: 100;
+  transition: background 0.3s, border-bottom 0.3s;
+}
+#nav.scrolled {
+  background: rgba(6, 6, 10, 0.92);
+  backdrop-filter: blur(12px);
+  border-bottom: 1px solid var(--border);
+}
+.nav-inner {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  padding: 20px 40px;
+  max-width: 1200px;
+  margin: 0 auto;
+}
+.nav-logo {
+  font-size: 18px;
+  font-weight: 900;
+  letter-spacing: -0.02em;
+  color: var(--orange);
+}
+.nav-links {
+  display: flex;
+  gap: 36px;
+}
+.nav-links a {
+  color: var(--text-dim);
+  text-decoration: none;
+  font-size: 14px;
+  font-weight: 500;
+  letter-spacing: 0.04em;
+  transition: color 0.2s;
+}
+.nav-links a:hover { color: var(--text); }
+.nav-cta {
+  background: var(--orange);
+  color: #fff;
+  text-decoration: none;
+  padding: 10px 22px;
+  font-size: 13px;
+  font-weight: 700;
+  letter-spacing: 0.04em;
+  transition: background 0.2s, transform 0.1s;
+}
+.nav-cta:hover { background: #ff7d35; transform: translateY(-1px); }
+
+/* TICKER */
+.ticker-bar {
+  position: fixed;
+  top: 0; left: 0; right: 0;
+  z-index: 99;
+  height: 32px;
+  background: var(--orange);
+  overflow: hidden;
+  display: flex;
+  align-items: center;
+}
+.ticker-track {
+  display: flex;
+  gap: 0;
+  white-space: nowrap;
+  animation: ticker 30s linear infinite;
+  font-size: 11px;
+  font-weight: 700;
+  letter-spacing: 0.1em;
+  color: #fff;
+}
+.ticker-track span { padding: 0 14px; }
+.ticker-track .sep { opacity: 0.5; padding: 0 2px; }
+@keyframes ticker {
+  0% { transform: translateX(0); }
+  100% { transform: translateX(-50%); }
+}
+#nav { top: 32px; }
+
+/* HERO */
+.hero {
+  position: relative;
+  width: 100%;
+  height: 100vh;
+  min-height: 600px;
+  overflow: hidden;
+  display: flex;
+  align-items: flex-end;
+  padding-bottom: 80px;
+  background-image: var(--hero-bg);
+  background-size: cover;
+  background-position: center center;
+  background-repeat: no-repeat;
+  background-attachment: fixed;
+}
+.hero-overlay {
+  position: absolute;
+  inset: 0;
+  background: linear-gradient(
+    to bottom,
+    rgba(6,6,10,0.15) 0%,
+    rgba(6,6,10,0.0) 25%,
+    rgba(6,6,10,0.25) 50%,
+    rgba(6,6,10,0.78) 75%,
+    rgba(6,6,10,1) 100%
+  );
+}
+.hero-content {
+  position: relative;
+  z-index: 2;
+  padding: 0 60px;
+  max-width: 700px;
+}
+.hero-label {
+  font-size: 11px;
+  font-weight: 700;
+  letter-spacing: 0.15em;
+  color: var(--orange);
+  margin-bottom: 16px;
+  text-transform: uppercase;
+}
+.hero-title {
+  font-size: clamp(80px, 14vw, 160px);
+  font-weight: 900;
+  line-height: 0.9;
+  letter-spacing: -0.04em;
+  color: var(--text);
+  margin-bottom: 4px;
+}
+.hero-title-alt {
+  color: var(--orange);
+  display: block;
+}
+.hero-sub {
+  font-size: 17px;
+  color: var(--text-dim);
+  line-height: 1.6;
+  margin: 20px 0 32px;
+  font-weight: 400;
+}
+.hero-actions {
+  display: flex;
+  gap: 16px;
+  align-items: center;
+}
+.btn-primary {
+  background: var(--orange);
+  color: #fff;
+  text-decoration: none;
+  padding: 14px 32px;
+  font-size: 14px;
+  font-weight: 700;
+  letter-spacing: 0.05em;
+  transition: background 0.2s, transform 0.15s;
+  display: inline-block;
+}
+.btn-primary:hover { background: #ff7d35; transform: translateY(-2px); }
+.btn-ghost {
+  color: var(--text-dim);
+  text-decoration: none;
+  font-size: 14px;
+  font-weight: 500;
+  border-bottom: 1px solid var(--border);
+  padding-bottom: 2px;
+  transition: color 0.2s, border-color 0.2s;
+}
+.btn-ghost:hover { color: var(--text); border-color: var(--text-dim); }
+
+.hero-countdown {
+  position: absolute;
+  right: 60px;
+  bottom: 80px;
+  z-index: 2;
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  background: rgba(6,6,10,0.7);
+  border: 1px solid var(--border);
+  padding: 20px 28px;
+  backdrop-filter: blur(8px);
+}
+.cd-item {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 4px;
+  min-width: 52px;
+}
+.cd-num {
+  font-size: 36px;
+  font-weight: 900;
+  letter-spacing: -0.03em;
+  color: var(--orange);
+  line-height: 1;
+  font-variant-numeric: tabular-nums;
+}
+.cd-label {
+  font-size: 9px;
+  font-weight: 700;
+  letter-spacing: 0.12em;
+  color: var(--text-faint);
+  text-transform: uppercase;
+}
+.cd-divider {
+  font-size: 28px;
+  font-weight: 900;
+  color: var(--text-faint);
+  align-self: flex-start;
+  padding-top: 4px;
+}
+
+/* ABOUT */
+.about {
+  padding: 120px 60px;
+  max-width: 1200px;
+  margin: 0 auto;
+}
+.about-inner {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 80px;
+  align-items: start;
+}
+.section-label {
+  font-size: 11px;
+  font-weight: 700;
+  letter-spacing: 0.15em;
+  color: var(--orange);
+  text-transform: uppercase;
+  margin-bottom: 24px;
+}
+.about-title {
+  font-size: clamp(36px, 4.5vw, 58px);
+  font-weight: 900;
+  line-height: 1.05;
+  letter-spacing: -0.03em;
+  color: var(--text);
+}
+.about-right {
+  padding-top: 56px;
+}
+.about-body {
+  font-size: 16px;
+  line-height: 1.75;
+  color: var(--text-dim);
+  margin-bottom: 24px;
+}
+.about-stats {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 1px;
+  background: var(--border);
+  margin-top: 48px;
+  border: 1px solid var(--border);
+}
+.stat {
+  background: var(--bg);
+  padding: 28px 24px;
+}
+.stat-num {
+  font-size: 36px;
+  font-weight: 900;
+  letter-spacing: -0.03em;
+  color: var(--orange);
+  line-height: 1;
+  margin-bottom: 8px;
+}
+.stat-label {
+  font-size: 12px;
+  font-weight: 500;
+  color: var(--text-dim);
+  letter-spacing: 0.04em;
+}
+
+/* TAPE */
+.mission-tape {
+  background: var(--orange);
+  padding: 16px 0;
+  overflow: hidden;
+}
+.tape-text {
+  font-size: 13px;
+  font-weight: 900;
+  letter-spacing: 0.1em;
+  color: #fff;
+  white-space: nowrap;
+  animation: ticker 20s linear infinite;
+}
+
+/* BUY */
+.buy {
+  padding: 120px 60px;
+  max-width: 1200px;
+  margin: 0 auto;
+}
+.buy-header {
+  margin-bottom: 72px;
+}
+.buy-title {
+  font-size: clamp(40px, 5vw, 64px);
+  font-weight: 900;
+  line-height: 1.0;
+  letter-spacing: -0.03em;
+  color: var(--text);
+  margin-top: 0;
+}
+.steps {
+  display: flex;
+  flex-direction: column;
+  gap: 0;
+  border-top: 1px solid var(--border);
+}
+.step {
+  display: flex;
+  gap: 48px;
+  align-items: flex-start;
+  padding: 48px 0;
+  border-bottom: 1px solid var(--border);
+  transition: background 0.2s;
+}
+.step:hover { background: rgba(255,255,255,0.02); margin: 0 -16px; padding-left: 16px; padding-right: 16px; }
+.step-num {
+  font-size: 48px;
+  font-weight: 900;
+  color: var(--orange);
+  letter-spacing: -0.04em;
+  line-height: 1;
+  min-width: 80px;
+  opacity: 0.6;
+}
+.step:hover .step-num { opacity: 1; }
+.step-content { flex: 1; padding-top: 4px; }
+.step-name {
+  font-size: 22px;
+  font-weight: 700;
+  color: var(--text);
+  margin-bottom: 10px;
+  letter-spacing: -0.01em;
+}
+.step-desc {
+  font-size: 15px;
+  color: var(--text-dim);
+  line-height: 1.7;
+  max-width: 560px;
+}
+
+/* IMAGE BREAK */
+.image-break {
+  position: relative;
+  height: 480px;
+  overflow: hidden;
+  background-image: var(--hero-bg);
+  background-size: cover;
+  background-position: center center;
+  background-attachment: fixed;
+}
+.break-overlay {
+  position: absolute;
+  inset: 0;
+  background: linear-gradient(
+    135deg,
+    rgba(6,6,10,0.85) 0%,
+    rgba(6,6,10,0.4) 60%,
+    rgba(6,6,10,0.7) 100%
+  );
+}
+.break-quote {
+  position: absolute;
+  bottom: 60px;
+  left: 60px;
+  z-index: 2;
+  max-width: 560px;
+}
+.break-quote blockquote {
+  font-size: clamp(20px, 2.5vw, 30px);
+  font-weight: 700;
+  line-height: 1.35;
+  color: var(--text);
+  letter-spacing: -0.02em;
+  margin-bottom: 16px;
+}
+.break-quote blockquote::before { content: '\201C'; color: var(--orange); }
+.break-quote blockquote::after { content: '\201D'; color: var(--orange); }
+.break-quote cite {
+  font-size: 12px;
+  font-weight: 700;
+  letter-spacing: 0.1em;
+  color: var(--orange);
+  font-style: normal;
+  text-transform: uppercase;
+}
+
+/* COMMUNITY */
+.community {
+  background: var(--surface);
+  padding: 120px 60px;
+  text-align: center;
+}
+.community-inner {
+  max-width: 600px;
+  margin: 0 auto;
+}
+.comm-title {
+  font-size: clamp(42px, 6vw, 72px);
+  font-weight: 900;
+  line-height: 1.0;
+  letter-spacing: -0.04em;
+  color: var(--text);
+  margin-bottom: 24px;
+}
+.comm-sub {
+  font-size: 16px;
+  color: var(--text-dim);
+  line-height: 1.7;
+  margin-bottom: 48px;
+}
+.comm-links {
+  display: flex;
+  gap: 16px;
+  justify-content: center;
+  flex-wrap: wrap;
+}
+.comm-btn {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+  padding: 14px 28px;
+  border: 1px solid var(--border);
+  color: var(--text);
+  text-decoration: none;
+  font-size: 14px;
+  font-weight: 600;
+  transition: border-color 0.2s, background 0.2s, transform 0.15s;
+  background: transparent;
+}
+.comm-btn:hover {
+  border-color: var(--orange);
+  color: var(--orange);
+  transform: translateY(-2px);
+}
+.comm-icon {
+  font-size: 16px;
+}
+.disclaimer {
+  margin-top: 60px;
+  font-size: 11px;
+  color: var(--text-faint);
+  line-height: 1.6;
+  max-width: 440px;
+  margin-left: auto;
+  margin-right: auto;
+}
+
+/* FOOTER */
+.footer {
+  border-top: 1px solid var(--border);
+  padding: 32px 60px;
+}
+.footer-inner {
+  max-width: 1200px;
+  margin: 0 auto;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+}
+.footer-logo {
+  font-size: 20px;
+  font-weight: 900;
+  color: var(--orange);
+  letter-spacing: -0.02em;
+}
+.footer-copy {
+  font-size: 12px;
+  color: var(--text-faint);
+}
+
+/* RESPONSIVE */
+@media (max-width: 900px) {
+  .about-inner { grid-template-columns: 1fr; gap: 40px; }
+  .hero-countdown { display: none; }
+  .nav-links { display: none; }
+  .hero-content { padding: 0 24px; }
+  .about, .buy, .community { padding-left: 24px; padding-right: 24px; }
+  .footer { padding: 24px; }
+  .footer-inner { flex-direction: column; gap: 12px; text-align: center; }
+  .hero { background-attachment: scroll; }
+  .image-break { background-attachment: scroll; }
+}
+@media (max-width: 600px) {
+  .step { flex-direction: column; gap: 16px; }
+  .step-num { font-size: 32px; }
+  .nav-inner { padding: 16px 20px; }
+}
+
+  </style>
+</head>
+<body>
+
+<nav id="nav">
+  <div class="nav-inner">
+    <div class="nav-logo">$MOONERS</div>
+    <div class="nav-links">
+      <a href="#about">Mission</a>
+      <a href="#buy">Buy</a>
+    </div>
+    <a href="#buy" class="nav-cta">Buy $MOONERS</a>
+  </div>
+</nav>
+
+<div class="ticker-bar">
+  <div class="ticker-track" id="tickerTrack">
+    <span>$MOONERS</span><span class="sep">·</span>
+    <span>LAUNCH: APR 1, 2026</span><span class="sep">·</span>
+    <span>SUPPLY: 1,000,000,000</span><span class="sep">·</span>
+    <span>SOLANA</span><span class="sep">·</span>
+    <span>0% TAX</span><span class="sep">·</span>
+    <span>LP BURNED</span><span class="sep">·</span>
+    <span>RENOUNCED</span><span class="sep">·</span>
+    <span>$MOONERS</span><span class="sep">·</span>
+    <span>LAUNCH: APR 1, 2026</span><span class="sep">·</span>
+    <span>SUPPLY: 1,000,000,000</span><span class="sep">·</span>
+    <span>SOLANA</span><span class="sep">·</span>
+    <span>0% TAX</span><span class="sep">·</span>
+    <span>LP BURNED</span><span class="sep">·</span>
+    <span>RENOUNCED</span><span class="sep">·</span>
+    <span>$MOONERS</span><span class="sep">·</span>
+    <span>LAUNCH: APR 1, 2026</span><span class="sep">·</span>
+    <span>SUPPLY: 1,000,000,000</span><span class="sep">·</span>
+    <span>SOLANA</span><span class="sep">·</span>
+    <span>0% TAX</span><span class="sep">·</span>
+    <span>LP BURNED</span><span class="sep">·</span>
+    <span>RENOUNCED</span><span class="sep">·</span>
+  </div>
+</div>
+
+<section class="hero">
+  <div class="hero-overlay"></div>
+  <div class="hero-content">
+    <div class="hero-label">NASA · APRIL 1, 2026 LAUNCH</div>
+    <h1 class="hero-title">
+      4<br/>
+      <span class="hero-title-alt">MOONERS</span>
+    </h1>
+    <div class="hero-sub">They went to the moon.<br/>We're sending your portfolio.</div>
+    <div class="hero-actions">
+      <a href="#buy" class="btn-primary">Buy $MOONERS</a>
+      <a href="#about" class="btn-ghost">Read the mission</a>
+    </div>
+  </div>
+  <div class="hero-countdown" id="countdown">
+    <div class="cd-item">
+      <span class="cd-num" id="cd-days">00</span>
+      <span class="cd-label">Days</span>
+    </div>
+    <div class="cd-divider">:</div>
+    <div class="cd-item">
+      <span class="cd-num" id="cd-hours">00</span>
+      <span class="cd-label">Hours</span>
+    </div>
+    <div class="cd-divider">:</div>
+    <div class="cd-item">
+      <span class="cd-num" id="cd-mins">00</span>
+      <span class="cd-label">Mins</span>
+    </div>
+    <div class="cd-divider">:</div>
+    <div class="cd-item">
+      <span class="cd-num" id="cd-secs">00</span>
+      <span class="cd-label">Secs</span>
+    </div>
+  </div>
+</section>
+
+<section id="about" class="about">
+  <div class="about-inner">
+    <div class="about-left">
+      <div class="section-label">The Mission</div>
+      <h2 class="about-title">Four suits.<br/>One destination.<br/>Zero gravity<br/>on the charts.</h2>
+    </div>
+    <div class="about-right">
+      <p class="about-body">On April 1st, 2026, NASA will confirm what the crypto community already knows — the moon was always the destination. Four astronauts will stand on the lunar surface, wave back at Earth, and in that moment, $MOONERS will take off.</p>
+      <p class="about-body">This isn't a joke coin. It's a joke that became a movement. The MOONERS memecoin lives on Solana, carries zero buy/sell tax, and is backed by a community of degens who actually believe in the mission.</p>
+      <div class="about-stats">
+        <div class="stat">
+          <div class="stat-num">4</div>
+          <div class="stat-label">Astronauts on the Moon</div>
+        </div>
+        <div class="stat">
+          <div class="stat-num">1B</div>
+          <div class="stat-label">Total Token Supply</div>
+        </div>
+        <div class="stat">
+          <div class="stat-num">0%</div>
+          <div class="stat-label">Buy / Sell Tax</div>
+        </div>
+        <div class="stat">
+          <div class="stat-num">APR 1</div>
+          <div class="stat-label">Launch Date 2026</div>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<section class="mission-tape">
+  <div class="tape-text">LAUNCHING APR 1, 2026 &nbsp;·&nbsp; TO THE MOON &nbsp;·&nbsp; $MOONERS &nbsp;·&nbsp; SOLANA &nbsp;·&nbsp; NASA APPROVED* &nbsp;·&nbsp; LAUNCHING APR 1, 2026 &nbsp;·&nbsp; TO THE MOON &nbsp;·&nbsp; $MOONERS &nbsp;·&nbsp; SOLANA &nbsp;·&nbsp; NASA APPROVED* &nbsp;·&nbsp; LAUNCHING APR 1, 2026 &nbsp;·&nbsp; TO THE MOON &nbsp;·&nbsp; $MOONERS &nbsp;·&nbsp;</div>
+</section>
+
+<section id="buy" class="buy">
+  <div class="buy-inner">
+    <div class="buy-header">
+      <div class="section-label">Get Onboard</div>
+      <h2 class="buy-title">How to buy<br/>$MOONERS</h2>
+    </div>
+    <div class="steps">
+      <div class="step">
+        <div class="step-num">01</div>
+        <div class="step-content">
+          <div class="step-name">Get a Solana Wallet</div>
+          <div class="step-desc">Download Phantom or Solflare. Create your wallet and write down your seed phrase somewhere safe. Don't be that person.</div>
+        </div>
+      </div>
+      <div class="step">
+        <div class="step-num">02</div>
+        <div class="step-content">
+          <div class="step-name">Buy SOL</div>
+          <div class="step-desc">Purchase SOL on Coinbase, Binance, or Kraken. Transfer it to your Phantom wallet address. Keep a little extra for gas.</div>
+        </div>
+      </div>
+      <div class="step">
+        <div class="step-num">03</div>
+        <div class="step-content">
+          <div class="step-name">Swap on Raydium / Jupiter</div>
+          <div class="step-desc">Go to jup.ag or raydium.io. Paste the $MOONERS contract address, set slippage to 1%, and swap. You're now a Mooner.</div>
+        </div>
+      </div>
+      <div class="step">
+        <div class="step-num">04</div>
+        <div class="step-content">
+          <div class="step-name">Hold &amp; Spread the Mission</div>
+          <div class="step-desc">Tell your friends. Post the orange suits. Tag NASA. The mission only works if the crew grows. We're all going to make it.</div>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<section class="image-break">
+  <div class="break-overlay"></div>
+  <div class="break-quote">
+    <blockquote>"One small step for man. One giant gain for $MOONERS holders."</blockquote>
+    <cite>— The 4 Mooners, April 1, 2026</cite>
+  </div>
+</section>
+
+<section class="community">
+  <div class="community-inner">
+    <div class="section-label">Community</div>
+    <h2 class="comm-title">The crew is<br/>assembling.</h2>
+    <p class="comm-sub">Join thousands of Mooners already holding orange suits in their wallets. We launch together on April 1, 2026.</p>
+    <div class="comm-links">
+      <a href="https://x.com/i/communities/2037915037210222709" target="_blank" rel="noopener noreferrer" class="comm-btn">
+        <span class="comm-icon">𝕏</span>
+        <span>@MoonersCoin</span>
+      </a>
+      <a href="https://dexscreener.com/solana/d9ak14zxh9pmcs1xa5rw6x2xaeyzrahecmyj8bfpatgy" target="_blank" rel="noopener noreferrer" class="comm-btn">
+        <span class="comm-icon">◈</span>
+        <span>DEXScreener</span>
+      </a>
+    </div>
+    <div class="disclaimer">*Not actually NASA approved. This is a memecoin. Do your own research. Never invest more than you can afford to lose.</div>
+  </div>
+</section>
+
+<footer class="footer">
+  <div class="footer-inner">
+    <div class="footer-logo">$MOONERS</div>
+    <div class="footer-copy">© 2026 MOONERS. To the moon or bust. Not financial advice.</div>
+  </div>
+</footer>
+
+<script>
+// Nav scroll behavior
+const nav = document.getElementById('nav');
+window.addEventListener('scroll', () => {
+  if (window.scrollY > 60) {
+    nav.classList.add('scrolled');
+  } else {
+    nav.classList.remove('scrolled');
+  }
+});
+
+// Countdown timer — target: April 1, 2026
+function updateCountdown() {
+  const launchDate = new Date('2026-04-01T00:00:00Z');
+  const now = new Date();
+  const diff = launchDate - now;
+
+  const cdEl = document.getElementById('countdown');
+  if (!cdEl) return;
+
+  if (diff <= 0) {
+    const elapsed = Math.abs(diff);
+    const days = Math.floor(elapsed / (1000 * 60 * 60 * 24));
+    const hours = Math.floor((elapsed % (1000 * 60 * 60 * 24)) / (1000 * 60 * 60));
+    const mins = Math.floor((elapsed % (1000 * 60 * 60)) / (1000 * 60));
+    const secs = Math.floor((elapsed % (1000 * 60)) / 1000);
+
+    document.getElementById('cd-days').textContent = String(days).padStart(2, '0');
+    document.getElementById('cd-hours').textContent = String(hours).padStart(2, '0');
+    document.getElementById('cd-mins').textContent = String(mins).padStart(2, '0');
+    document.getElementById('cd-secs').textContent = String(secs).padStart(2, '0');
+
+    if (!cdEl.querySelector('.cd-launched-badge')) {
+      const badge = document.createElement('div');
+      badge.className = 'cd-launched-badge';
+      badge.style.cssText = `
+        position: absolute;
+        top: -1px;
+        left: 50%;
+        transform: translateX(-50%) translateY(-50%);
+        background: var(--orange);
+        color: #fff;
+        font-size: 9px;
+        font-weight: 800;
+        letter-spacing: 0.12em;
+        padding: 3px 10px;
+        text-transform: uppercase;
+        white-space: nowrap;
+      `;
+      badge.textContent = '✓ LAUNCHED APR 1, 2026';
+      cdEl.style.position = 'relative';
+      cdEl.appendChild(badge);
+    }
+  } else {
+    const days = Math.floor(diff / (1000 * 60 * 60 * 24));
+    const hours = Math.floor((diff % (1000 * 60 * 60 * 24)) / (1000 * 60 * 60));
+    const mins = Math.floor((diff % (1000 * 60 * 60)) / (1000 * 60));
+    const secs = Math.floor((diff % (1000 * 60)) / 1000);
+
+    document.getElementById('cd-days').textContent = String(days).padStart(2, '0');
+    document.getElementById('cd-hours').textContent = String(hours).padStart(2, '0');
+    document.getElementById('cd-mins').textContent = String(mins).padStart(2, '0');
+    document.getElementById('cd-secs').textContent = String(secs).padStart(2, '0');
+  }
+}
+
+updateCountdown();
+setInterval(updateCountdown, 1000);
+
+// Scroll reveal animation
+const observerOptions = {
+  threshold: 0.1,
+  rootMargin: '0px 0px -40px 0px'
+};
+
+const observer = new IntersectionObserver((entries) => {
+  entries.forEach(entry => {
+    if (entry.isIntersecting) {
+      entry.target.style.opacity = '1';
+      entry.target.style.transform = 'translateY(0)';
+    }
+  });
+}, observerOptions);
+
+const animTargets = document.querySelectorAll('.stat, .step');
+animTargets.forEach((el, i) => {
+  el.style.opacity = '0';
+  el.style.transform = 'translateY(20px)';
+  el.style.transition = `opacity 0.5s ease ${i * 0.06}s, transform 0.5s ease ${i * 0.06}s`;
+  observer.observe(el);
+});
+
+// Smooth scroll for nav links
+document.querySelectorAll('a[href^="#"]').forEach(link => {
+  link.addEventListener('click', e => {
+    const target = document.querySelector(link.getAttribute('href'));
+    if (target) {
+      e.preventDefault();
+      target.scrollIntoView({ behavior: 'smooth', block: 'start' });
+    }
+  });
+});
+</script>
+</body>
+</html>
